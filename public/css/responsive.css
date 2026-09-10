@@ -170,7 +170,18 @@ pre {
    The header becomes: logo + basket on row 1, search on row 2.
    ------------------------------------------------------------ */
 
-@media (max-width: 768px) {
+/* ------------------------------------------------------------
+   HEADER LAYOUT - tablets and below.
+
+   The action items carry two-line labels (Track / Order Status, Saved /
+   Wishlist, Account / Sign In, Basket) which together take about 480px of an
+   818px header. That left the search row 125px to fit 216px of controls, so
+   the Search button was pushed past the edge and clipped by overflow:hidden.
+   Below 1024px the labels collapse to their icons and the search field moves
+   to its own full-width row - what the phone layout already did at 768px.
+   ------------------------------------------------------------ */
+
+@media (max-width: 1024px) {
   .topbar {
     display: none;
   }
@@ -219,6 +230,9 @@ pre {
     font-size: 1.25rem;
   }
 
+}
+
+@media (max-width: 768px) {
   .products-grid {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 14px;
