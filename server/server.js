@@ -1155,7 +1155,7 @@ app.get('/api/chat/records', async (req, res) => {
 // START SERVER
 // ============================================================
 
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'test' && !process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`🚀 Sathya Bio Engine running with persistent DB on port ${PORT}`);
     console.log(`📱 WhatsApp OTP system enabled`);
