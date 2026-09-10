@@ -11,8 +11,9 @@ return ctx
 }
 
 // Role → Default Route mapping
+// Farmers have no separate portal - the storefront homepage is their home.
 export const ROLE_HOME = {
-farmer: '/farmer',
+farmer: '/',
 admin: '/admin',
 employee: '/employee',
 delivery: '/delivery',
