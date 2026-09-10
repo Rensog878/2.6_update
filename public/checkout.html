@@ -6,6 +6,7 @@
   <title>Sathya Bio Checkout</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/responsive.css" />
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <style>
     body { margin:0; background:#f0fdf4; color:#173b2a; }
@@ -49,6 +50,62 @@
     .footer-grid ul { list-style:none; padding:0; margin:0; display:grid; gap:6px; }
     .footer-bottom { max-width:1180px; margin:28px auto 0; padding-top:18px; border-top:1px solid rgba(217,255,235,.2); display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
     @media (max-width:800px) { .site-nav { display:none; } .site-actions span { display:none; } .footer-grid { grid-template-columns:1fr 1fr; } }
+
+    /* --- Phones -------------------------------------------------------
+       .checkout-line is a five-part row: thumbnail, name, quantity, price,
+       remove. Below 560px there is no room for all five side by side - the
+       name column collapsed to about eight pixels and the product title
+       rendered one character per line. So the row becomes a small grid:
+       thumbnail and name across the top, controls underneath. --- */
+    @media (max-width: 560px) {
+      .checkout-page { margin: 16px 0; padding: 18px 16px; border-radius: 12px; }
+      .checkout-page h1 { font-size: 1.35rem; }
+
+      .checkout-line {
+        display: grid;
+        grid-template-columns: 48px minmax(0, 1fr);
+        grid-template-areas: "thumb name" "qty price";
+        align-items: center;
+        column-gap: 12px;
+        row-gap: 10px;
+        padding: 14px 0;
+      }
+      .checkout-line-thumb { grid-area: thumb; width: 48px; height: 48px; }
+      .checkout-line-body  { grid-area: name; }
+      .checkout-line-name  { font-size: .95rem; line-height: 1.35; }
+      .checkout-line .qty  { grid-area: qty; justify-self: start; }
+      .checkout-line > strong { grid-area: price; justify-self: end; font-size: 1rem; }
+      /* Remove sits under the price, right-aligned, clear of the stepper. */
+      .checkout-line .link-btn {
+        grid-area: price;
+        justify-self: end;
+        transform: translateY(26px);
+        padding: 4px 0;
+      }
+      .checkout-line { padding-bottom: 34px; }
+
+      /* Stacked buttons: full width, thumb-sized, pay first. */
+      .checkout-actions { flex-direction: column-reverse; gap: 10px; }
+      .checkout-actions button { width: 100%; min-height: 48px; font-size: 1rem; }
+
+      .totals .grand { font-size: 1.05rem; }
+    }
+
+    /* Never let iOS zoom the page when a checkout field is focused. */
+    @media (hover: none) and (pointer: coarse) {
+      .checkout-form input,
+      .checkout-form textarea,
+      .checkout-form select { font-size: 16px; }
+      .qty button { min-width: 40px; min-height: 40px; }
+      .link-btn { min-height: 40px; }
+      /* "Back to store" is the escape hatch from this page - make it easy to hit. */
+      .checkout-page > a { display: inline-block; padding: 8px 0; }
+    }
+
+    /* Respect the home indicator / rounded corners on modern phones. */
+    @supports (padding: max(0px)) {
+      .checkout-page { margin-bottom: max(24px, env(safe-area-inset-bottom)); }
+    }
     @media (max-width:520px) { .footer-grid { grid-template-columns:1fr; } .checkout-page { margin:24px 14px; } }
   </style>
 </head>
@@ -314,7 +371,7 @@
 
     loadCart().then(loaded => { cart = loaded; render(); });
   </script>
-  <footer style="background: var(--primary-dark); color: #ffffff; padding: 50px 0 20px;"><div class="container"><div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 30px; margin-bottom: 40px;"><div><div class="logo-text" style="color: #ffffff; font-size: 1.6rem; margin-bottom: 10px;">SATHYA <span style="color: var(--accent-gold);">BIO</span></div><p style="font-size: 0.85rem; color: #d1fae5; line-height: 1.6; margin-bottom: 16px;">Sathya Bio is India's leading digital platform for high-efficacy bio-pesticides, crop protection chemicals, and soil health fertilizers. Providing 100% bio-certified products with fast express dispatch to 15,000+ farmers across India.</p><div style="display: flex; gap: 12px; font-size: 1.2rem;"><a href="#" style="color: white;"><i class="fa-brands fa-whatsapp"></i></a><a href="#" style="color: white;"><i class="fa-brands fa-facebook"></i></a><a href="#" style="color: white;"><i class="fa-brands fa-youtube"></i></a><a href="#" style="color: white;"><i class="fa-brands fa-instagram"></i></a></div></div><div><h4 style="color: var(--accent-gold); margin-bottom: 14px; font-size: 0.95rem;">Store Categories</h4><ul style="list-style: none; font-size: 0.82rem; display: flex; flex-direction: column; gap: 8px; color: #d1fae5;"><li><a href="./index.html#catalog">Bio-Fungicides</a></li><li><a href="./index.html#catalog">Insecticides</a></li><li><a href="./index.html#catalog">Herbicides</a></li><li><a href="./index.html#catalog">Bio-Stimulants</a></li><li><a href="./index.html#catalog">Nematicides</a></li></ul></div><div><h4 style="color: var(--accent-gold); margin-bottom: 14px; font-size: 0.95rem;">Top Crops</h4><ul style="list-style: none; font-size: 0.82rem; display: flex; flex-direction: column; gap: 8px; color: #d1fae5;"><li><a href="./index.html#catalog">Paddy / Rice Care</a></li><li><a href="./index.html#catalog">Cotton Protection</a></li><li><a href="./index.html#catalog">Tomato &amp; Vegetables</a></li><li><a href="./index.html#catalog">Sugarcane Care</a></li><li><a href="./index.html#catalog">Horticulture &amp; Fruits</a></li></ul></div><div><h4 style="color: var(--accent-gold); margin-bottom: 14px; font-size: 0.95rem;">Customer Support</h4><p style="font-size: 0.85rem; color: #d1fae5; margin-bottom: 8px;"><i class="fa-solid fa-phone"></i> Toll Free: 1800-425-9999</p><p style="font-size: 0.85rem; color: #d1fae5; margin-bottom: 8px;"><i class="fa-solid fa-envelope"></i> support@sathyabio.com</p><p style="font-size: 0.85rem; color: #d1fae5; margin-bottom: 12px;"><i class="fa-solid fa-location-dot"></i> Sathya Bio Tech Park, Hyderabad, India</p><div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; font-size: 0.78rem;"><i class="fa-solid fa-lock" style="color: var(--accent-gold);"></i> 100% Secure Payment (UPI, COD, NetBanking)</div></div></div><div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #a7f3d0;"><span>© 2026 Sathya Bio Agro Tech Ltd. All rights reserved. Inspired by BigHaat.</span><div style="display: flex; gap: 15px;"><span>Privacy Policy</span><span>Terms of Sale</span><span>Refund Policy</span></div></div></div></footer>
+  <footer style="background: var(--primary-dark); color: #ffffff; padding: 50px 0 20px;"><div class="container"><div class="footer-grid" style="gap: 30px; margin-bottom: 40px;"><div><div class="logo-text" style="color: #ffffff; font-size: 1.6rem; margin-bottom: 10px;">SATHYA <span style="color: var(--accent-gold);">BIO</span></div><p style="font-size: 0.85rem; color: #d1fae5; line-height: 1.6; margin-bottom: 16px;">Sathya Bio is India's leading digital platform for high-efficacy bio-pesticides, crop protection chemicals, and soil health fertilizers. Providing 100% bio-certified products with fast express dispatch to 15,000+ farmers across India.</p><div style="display: flex; gap: 12px; font-size: 1.2rem;"><a href="#" style="color: white;"><i class="fa-brands fa-whatsapp"></i></a><a href="#" style="color: white;"><i class="fa-brands fa-facebook"></i></a><a href="#" style="color: white;"><i class="fa-brands fa-youtube"></i></a><a href="#" style="color: white;"><i class="fa-brands fa-instagram"></i></a></div></div><div><h4 style="color: var(--accent-gold); margin-bottom: 14px; font-size: 0.95rem;">Store Categories</h4><ul style="list-style: none; font-size: 0.82rem; display: flex; flex-direction: column; gap: 8px; color: #d1fae5;"><li><a href="./index.html#catalog">Bio-Fungicides</a></li><li><a href="./index.html#catalog">Insecticides</a></li><li><a href="./index.html#catalog">Herbicides</a></li><li><a href="./index.html#catalog">Bio-Stimulants</a></li><li><a href="./index.html#catalog">Nematicides</a></li></ul></div><div><h4 style="color: var(--accent-gold); margin-bottom: 14px; font-size: 0.95rem;">Top Crops</h4><ul style="list-style: none; font-size: 0.82rem; display: flex; flex-direction: column; gap: 8px; color: #d1fae5;"><li><a href="./index.html#catalog">Paddy / Rice Care</a></li><li><a href="./index.html#catalog">Cotton Protection</a></li><li><a href="./index.html#catalog">Tomato &amp; Vegetables</a></li><li><a href="./index.html#catalog">Sugarcane Care</a></li><li><a href="./index.html#catalog">Horticulture &amp; Fruits</a></li></ul></div><div><h4 style="color: var(--accent-gold); margin-bottom: 14px; font-size: 0.95rem;">Customer Support</h4><p style="font-size: 0.85rem; color: #d1fae5; margin-bottom: 8px;"><i class="fa-solid fa-phone"></i> Toll Free: 1800-425-9999</p><p style="font-size: 0.85rem; color: #d1fae5; margin-bottom: 8px;"><i class="fa-solid fa-envelope"></i> support@sathyabio.com</p><p style="font-size: 0.85rem; color: #d1fae5; margin-bottom: 12px;"><i class="fa-solid fa-location-dot"></i> Sathya Bio Tech Park, Hyderabad, India</p><div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; font-size: 0.78rem;"><i class="fa-solid fa-lock" style="color: var(--accent-gold);"></i> 100% Secure Payment (UPI, COD, NetBanking)</div></div></div><div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #a7f3d0;"><span>© 2026 Sathya Bio Agro Tech Ltd. All rights reserved. Inspired by BigHaat.</span><div style="display: flex; gap: 15px;"><span>Privacy Policy</span><span>Terms of Sale</span><span>Refund Policy</span></div></div></div></footer>
   <script>
     (() => {
       let user = null;
