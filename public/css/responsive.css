@@ -1,0 +1,402 @@
+/* ============================================================
+   Sathya Bio — Responsive rules
+   Targets: Android & iOS phones, tablets, Windows/Mac desktops.
+   Breakpoints: 1200 / 1024 / 900 / 768 / 600 / 480 / 360
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. GLOBAL SAFETY
+   Stops any single wide element forcing the whole page sideways.
+   ------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Stop iOS/Android inflating text in landscape. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Media and embeds must never exceed their column. */
+img,
+video,
+canvas,
+svg,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Long words / URLs shouldn't push the layout wide on narrow screens. */
+body {
+  overflow-wrap: break-word;
+}
+
+/* Wide content scrolls inside itself rather than stretching the page. */
+table,
+pre {
+  max-width: 100%;
+  overflow-x: auto;
+  display: block;
+}
+
+/* Respect notch / rounded corners on iPhone and modern Android. */
+@supports (padding: max(0px)) {
+  .header-main,
+  .navbar,
+  footer,
+  .container {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+}
+
+/* ------------------------------------------------------------
+   2. LARGE DESKTOP / LAPTOP
+   ------------------------------------------------------------ */
+
+@media (max-width: 1200px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .header-grid {
+    gap: 16px;
+  }
+  .header-actions {
+    gap: 14px;
+  }
+}
+
+/* ------------------------------------------------------------
+   3. TABLET LANDSCAPE
+   ------------------------------------------------------------ */
+
+@media (max-width: 1024px) {
+  .hero-banner-grid,
+  .shop-layout {
+    grid-template-columns: 1fr;
+  }
+  .footer-grid,
+  .category-circles-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .crop-grid,
+  .trust-strip-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bento-grid-3,
+  .bento-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  /* Filters sit above the catalogue once the sidebar layout collapses. */
+  .sidebar-panel {
+    position: static;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+  }
+}
+
+/* ------------------------------------------------------------
+   4. TABLET PORTRAIT / SMALL LAPTOP
+   ------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+  .header-search {
+    max-width: none;
+  }
+  .nav-links {
+    gap: 14px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+  .nav-links li {
+    flex-shrink: 0;
+  }
+}
+
+/* ------------------------------------------------------------
+   5. PHONES (landscape) & SMALL TABLETS
+   The header becomes: logo + basket on row 1, search on row 2.
+   ------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+  .topbar {
+    display: none;
+  }
+
+  .header-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-box {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .header-search {
+    order: 3;
+    flex: 1 0 100%;
+    max-width: 100%;
+    margin-top: 4px;
+  }
+
+  .search-category-dropdown {
+    display: none;
+  }
+
+  .header-actions {
+    flex: 0 0 auto;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  /* Icons only — the two-line labels are what forced the page wide. */
+  .action-item .action-sub,
+  .action-item .action-title {
+    display: none;
+  }
+  .action-item.lang-item {
+    display: none;
+  }
+  .action-item {
+    padding: 6px;
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
+  }
+  .action-icon {
+    font-size: 1.25rem;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+  }
+  .category-circles-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .circle-icon-box {
+    width: 62px;
+    height: 62px;
+    font-size: 1.45rem;
+  }
+  .crop-grid,
+  .footer-grid,
+  .bento-grid-3,
+  .bento-grid-4 {
+    grid-template-columns: 1fr;
+  }
+  .trust-strip-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .slide-title {
+    font-size: 1.5rem;
+  }
+  .section-title {
+    font-size: 1.3rem;
+  }
+  .section-header-flex {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  /* Drawers and modals go full-bleed and stay scrollable. */
+  .cart-drawer {
+    width: 100%;
+    max-width: 100%;
+  }
+  .modal-card {
+    width: calc(100% - 24px);
+    max-width: none;
+    max-height: 88vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .modal-lg {
+    max-width: none;
+  }
+
+  .chatbot-window {
+    width: calc(100vw - 24px);
+    right: 12px;
+    left: 12px;
+    max-height: 70vh;
+  }
+}
+
+/* ------------------------------------------------------------
+   6. PHONES (portrait)
+   ------------------------------------------------------------ */
+
+@media (max-width: 600px) {
+  .container {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .category-circles-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .trust-strip-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+  .slide-title {
+    font-size: 1.3rem;
+  }
+
+  /* Registration/login forms: one field per row. */
+  .modal-card form > div[style*="grid"] {
+    display: block !important;
+  }
+  .modal-card form > div[style*="grid"] > div {
+    margin-bottom: 12px;
+  }
+}
+
+/* ------------------------------------------------------------
+   7. SMALL PHONES (iPhone SE, Galaxy S8)
+   ------------------------------------------------------------ */
+
+@media (max-width: 480px) {
+  .logo-text {
+    font-size: 1.05rem;
+  }
+  .logo-sub {
+    display: none;
+  }
+  .header-actions {
+    gap: 4px;
+  }
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .product-card-body,
+  .card-content {
+    padding: 10px;
+  }
+  .section-title {
+    font-size: 1.15rem;
+  }
+  .cart-header,
+  .cart-footer {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+  .category-circles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ------------------------------------------------------------
+   8. TOUCH DEVICES
+   Comfortable hit areas and no iOS zoom-on-focus.
+   ------------------------------------------------------------ */
+
+@media (hover: none) and (pointer: coarse) {
+  button,
+  .btn,
+  a.btn,
+  .action-item,
+  .qty-btn,
+  select,
+  input[type="submit"] {
+    min-height: 44px;
+  }
+
+  .qty-btn {
+    min-width: 44px;
+  }
+
+  /* iOS Safari zooms the whole page when focusing an input under 16px, which
+     shifts the layout mid-typing. Class selectors are needed here to outrank
+     .text-input / .select-input in style.css. */
+  input,
+  select,
+  textarea,
+  .text-input,
+  .select-input,
+  .lang-select,
+  #headerSearchInput,
+  .header-search input,
+  .chatbot-input-row input,
+  .newsletter-input,
+  .newsletter-select,
+  .newsletter-section input,
+  .newsletter-section select {
+    font-size: 16px;
+  }
+
+  /* Hover-only effects are a nuisance on touch. */
+  .product-card:hover {
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------
+   9. ACCESSIBILITY / PRINT
+   ------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ticker-track {
+    animation: none !important;
+  }
+}
+
+@media print {
+  .topbar,
+  .ticker-wrap,
+  .navbar,
+  .chatbot-trigger-btn,
+  .chatbot-window,
+  .cart-drawer-overlay,
+  #sbToastHost {
+    display: none !important;
+  }
+}

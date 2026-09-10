@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sathya Bio Checkout</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <style>
+    body { margin:0; background:#f0fdf4; color:#173b2a; }
+    .site-header { background:#fff; color:#064e3b; padding:16px 5vw; display:flex; justify-content:space-between; align-items:center; gap:28px; border-bottom:1px solid #d8eee2; }
+    .site-header a,.site-footer a { color:inherit; text-decoration:none; }
+    .site-brand { display:flex; align-items:center; gap:10px; font-size:1.35rem; font-weight:800; letter-spacing:.08em; }
+    .site-brand-mark { display:grid; place-items:center; width:42px; height:42px; border-radius:12px; background:#16a05d; color:#fff; font-size:1.4rem; }
+    .site-nav { display:flex; gap:22px; font-size:.9rem; font-weight:700; }
+    .site-nav a:hover { color:#059669; }
+    .site-actions { display:flex; align-items:center; gap:14px; font-weight:700; font-size:.86rem; }
+    .site-actions a { display:flex; align-items:center; gap:6px; }
+    .checkout-page { max-width:760px; margin:48px auto; padding:28px; background:#fff; border-radius:16px; box-shadow:0 12px 40px rgba(20,83,45,.12); }
+    .checkout-items { border-bottom:1px solid #d1fae5; margin:18px 0; padding-bottom:12px; }
+    .checkout-row { display:flex; justify-content:space-between; gap:16px; padding:8px 0; }
+    .checkout-form { display:grid; gap:12px; }
+    .checkout-form input,.checkout-form textarea,.checkout-form select { width:100%; padding:12px; border:1px solid #bbf7d0; border-radius:8px; box-sizing:border-box; }
+    .checkout-actions { display:flex; gap:12px; margin-top:18px; }
+    button { border:0; border-radius:8px; padding:12px 18px; cursor:pointer; font-weight:700; }
+    .primary { background:#15803d; color:#fff; } .secondary { background:#dcfce7; color:#166534; }
+    .empty { text-align:center; padding:40px 0; }
+    .site-footer { background:#07563f; color:#d1fae5; padding:42px 5vw 18px; margin-top:48px; font-size:.85rem; }
+    .footer-grid { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:1.7fr 1fr 1fr 1.35fr; gap:30px; }
+    .footer-grid h3 { color:#fff; font-size:1.35rem; margin:0 0 12px; }
+    .footer-grid h3 span,.footer-grid h4 { color:#ffc229; }
+    .footer-grid h4 { margin:0 0 12px; }
+    .footer-grid p,.footer-grid li { color:#c4f5da; line-height:1.65; }
+    .footer-grid ul { list-style:none; padding:0; margin:0; display:grid; gap:6px; }
+    .footer-bottom { max-width:1180px; margin:28px auto 0; padding-top:18px; border-top:1px solid rgba(217,255,235,.2); display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+    @media (max-width:800px) { .site-nav { display:none; } .site-actions span { display:none; } .footer-grid { grid-template-columns:1fr 1fr; } }
+    @media (max-width:520px) { .footer-grid { grid-template-columns:1fr; } .checkout-page { margin:24px 14px; } }
+  </style>
+</head>
+<body>
+  <div class="ticker-wrap"><div class="ticker-track" id="tickerTrack"><span class="ticker-item"><i class="fa-solid fa-fire" style="color:#fbbf24"></i> FLAT 15% OFF on first order — Use code <strong>FARM15</strong></span><span class="ticker-item"><i class="fa-solid fa-truck-fast" style="color:#34d399"></i> Free express delivery on orders above ₹999 across all 28 states</span><span class="ticker-item"><i class="fa-solid fa-leaf" style="color:#6ee7b7"></i> BlastShield 75 WP — #1 Selling Paddy Fungicide this Kharif Season</span><span class="ticker-item"><i class="fa-brands fa-whatsapp" style="color:#25d366"></i> WhatsApp us at 9000-425-999 for instant crop advisory in your language</span><span class="ticker-item"><i class="fa-solid fa-award" style="color:#fbbf24"></i> Sathya Bio — Winner of ICAR Best AgriTech 2025 Award</span><span class="ticker-item"><i class="fa-solid fa-phone-volume" style="color:#34d399"></i> Missed Call To Order: <strong>1800-425-9999</strong> — 24 hrs, 7 days</span></div></div>
+  <div class="topbar"><div class="container topbar-content"><div class="topbar-left-links"><a href="./index.html#catalog" class="topbar-link">Sell on Sathya Bio</a><a href="./index.html#tickets" class="topbar-link">Bulk Order Inquiries</a><a href="./index.html#experts" class="topbar-link">Corporate Site</a><span class="topbar-badge"><i class="fa-solid fa-phone-volume"></i> Missed Call To Order: <strong>1800-425-9999</strong></span></div><div class="topbar-right-info"><span class="topbar-shipping-note"><i class="fa-solid fa-truck-fast"></i> <span data-i18n="topbar_shipping">FREE Shipping on Orders over ₹999</span></span><div class="lang-selector-wrapper"><i class="fa-solid fa-globe"></i><select class="lang-select" aria-label="Language"><option>English</option><option>தமிழ் (Tamil)</option><option>తెలుగు (Telugu)</option><option>ಕನ್ನಡ (Kannada)</option><option>മലയാളം (Malayalam)</option><option>ತುಳು (Tulu)</option></select></div></div></div></div>
+  <header class="header-main"><div class="container header-grid"><a href="./index.html" class="logo-box"><div class="logo-icon"><i class="fa-solid fa-leaf"></i></div><div><div class="logo-text">SATHYA <span>BIO</span></div><span class="logo-sub" data-i18n="logo_sub">Agro Pesticide Store</span></div></a><div class="header-search"><div class="search-category-dropdown"><select><option>All Categories</option><option>Fungicides</option><option>Insecticides</option><option>Herbicides</option><option>Bio-Stimulants</option><option>Nematicides</option></select></div><input type="text" placeholder="Search by crop, disease, chemical e.g. Blast, Paddy, Whitefly..." /><button type="button" class="voice-search-btn" title="Voice Search"><i class="fa-solid fa-microphone"></i></button><button type="button"><i class="fa-solid fa-magnifying-glass"></i> Search</button></div><div class="header-actions"><div class="action-item lang-item"><i class="fa-solid fa-language action-icon"></i><div><span class="action-sub">Language</span><select class="header-lang-dropdown"><option>English</option><option>தமிழ்</option><option>తెలుగు</option><option>ಕನ್ನಡ</option><option>മലയാളം</option><option>ತುಳು</option></select></div></div><a class="action-item" href="./order-status.html"><i class="fa-solid fa-truck-ramp-box action-icon"></i><div><span class="action-sub">Track</span><span class="action-title">Order Status</span></div></a><div class="action-item"><div class="action-icon"><i class="fa-regular fa-heart"></i><span class="cart-badge" style="background: var(--accent-amber);">0</span></div><div><span class="action-sub">Saved</span><span class="action-title">Wishlist</span></div></div><div class="action-item"><i class="fa-regular fa-circle-user action-icon"></i><div><span class="action-sub">Account</span><span class="action-title">Login / Register</span></div></div><a class="action-item cart-trigger-btn" href="./checkout.html"><div class="action-icon"><i class="fa-solid fa-bag-shopping"></i><span class="cart-badge">0</span></div><div><span class="action-sub">Basket</span><span class="action-title">₹0</span></div></a></div></div></header>
+  <nav class="navbar"><div class="container nav-content"><ul class="nav-links"><li><a href="./index.html#catalog" class="active"><i class="fa-solid fa-store"></i> All Products</a></li><li><a href="./index.html#categoriesSection"><i class="fa-solid fa-layer-group"></i> Categories</a></li><li><a href="./index.html#cropSection"><i class="fa-solid fa-wheat-field"></i> Shop by Crop</a></li><li><a href="./index.html#brandsSection"><i class="fa-solid fa-award"></i> Brands</a></li><li><a href="./index.html#soil"><i class="fa-solid fa-flask"></i> Soil Analyzer</a></li><li><a href="./index.html#n8n"><i class="fa-brands fa-whatsapp"></i> WhatsApp N8N AI</a></li><li><a href="./index.html#tickets"><i class="fa-solid fa-headset"></i> Support Tickets</a></li><li><a href="./index.html#experts"><i class="fa-solid fa-user-doctor"></i> Agronomists</a></li></ul><div style="display: flex; gap: 10px;"><button class="btn btn-gold" style="padding: 6px 16px; font-size: 0.82rem; border-radius: 50px;"><i class="fa-solid fa-camera-retro"></i> AI Leaf Doctor</button></div></div></nav>
+  <main class="checkout-page">
+    <a href="./index.html">← Back to store</a>
+    <h1>Complete your order</h1>
+    <div id="items" class="checkout-items"></div>
+    <form id="checkoutForm" class="checkout-form">
+      <input name="customerName" placeholder="Full name" required />
+      <input name="customerPhone" placeholder="Mobile number" type="tel" required />
+      <textarea name="address" placeholder="Farm delivery address" rows="3" required></textarea>
+      <select name="paymentMethod"><option>Cash on Delivery</option><option>UPI</option></select>
+      <div class="checkout-actions"><button type="button" class="secondary" onclick="location.href='./index.html'">Continue shopping</button><button class="primary">Place order</button></div>
+    </form>
+  </main>
+  <script>
+    const readCart = key => {
+      try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch { return []; }
+    };
+    const publicCart = readCart('sathya_public_cart');
+    const farmerCart = readCart('sathya_cart');
+    const cart = publicCart.length ? publicCart : farmerCart;
+    const itemsElement = document.getElementById('items');
+    const form = document.getElementById('checkoutForm');
+    const total = cart.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.qty || 1), 0);
+    itemsElement.innerHTML = cart.length ? cart.map(item => `<div class="checkout-row"><span>${item.name} x${item.qty || 1}</span><strong>₹${Number(item.price || 0) * Number(item.qty || 1)}</strong></div>`).join('') + `<div class="checkout-row"><strong>Total</strong><strong>₹${total}</strong></div>` : '<div class="empty">Your basket is empty.</div>';
+    if (!cart.length) form.style.display = 'none';
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+      const user = JSON.parse(localStorage.getItem('sathya_user') || 'null');
+      const response = await fetch('/api/orders', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ ...data, userId: user?.id || user?._id, items: cart, subtotal:total, total }) });
+      if (!response.ok) return alert('Unable to place order. Please try again.');
+      localStorage.removeItem('sathya_public_cart');
+      localStorage.removeItem('sathya_cart');
+      alert('Order placed successfully.');
+      location.href = './index.html';
+    });
+  </script>
+  <footer style="background: var(--primary-dark); color: #ffffff; padding: 50px 0 20px;"><div class="container"><div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 30px; margin-bottom: 40px;"><div><div class="logo-text" style="color: #ffffff; font-size: 1.6rem; margin-bottom: 10px;">SATHYA <span style="color: var(--accent-gold);">BIO</span></div><p style="font-size: 0.85rem; color: #d1fae5; line-height: 1.6; margin-bottom: 16px;">Sathya Bio is India's leading digital platform for high-efficacy bio-pesticides, crop protection chemicals, and soil health fertilizers. Providing 100% bio-certified products with fast express dispatch to 15,000+ farmers across India.</p><div style="display: flex; gap: 12px; font-size: 1.2rem;"><a href="#" style="color: white;"><i class="fa-brands fa-whatsapp"></i></a><a href="#" style="color: white;"><i class="fa-brands fa-facebook"></i></a><a href="#" style="color: white;"><i class="fa-brands fa-youtube"></i></a><a href="#" style="color: white;"><i class="fa-brands fa-instagram"></i></a></div></div><div><h4 style="color: var(--accent-gold); margin-bottom: 14px; font-size: 0.95rem;">Store Categories</h4><ul style="list-style: none; font-size: 0.82rem; display: flex; flex-direction: column; gap: 8px; color: #d1fae5;"><li><a href="./index.html#catalog">Bio-Fungicides</a></li><li><a href="./index.html#catalog">Insecticides</a></li><li><a href="./index.html#catalog">Herbicides</a></li><li><a href="./index.html#catalog">Bio-Stimulants</a></li><li><a href="./index.html#catalog">Nematicides</a></li></ul></div><div><h4 style="color: var(--accent-gold); margin-bottom: 14px; font-size: 0.95rem;">Top Crops</h4><ul style="list-style: none; font-size: 0.82rem; display: flex; flex-direction: column; gap: 8px; color: #d1fae5;"><li><a href="./index.html#catalog">Paddy / Rice Care</a></li><li><a href="./index.html#catalog">Cotton Protection</a></li><li><a href="./index.html#catalog">Tomato &amp; Vegetables</a></li><li><a href="./index.html#catalog">Sugarcane Care</a></li><li><a href="./index.html#catalog">Horticulture &amp; Fruits</a></li></ul></div><div><h4 style="color: var(--accent-gold); margin-bottom: 14px; font-size: 0.95rem;">Customer Support</h4><p style="font-size: 0.85rem; color: #d1fae5; margin-bottom: 8px;"><i class="fa-solid fa-phone"></i> Toll Free: 1800-425-9999</p><p style="font-size: 0.85rem; color: #d1fae5; margin-bottom: 8px;"><i class="fa-solid fa-envelope"></i> support@sathyabio.com</p><p style="font-size: 0.85rem; color: #d1fae5; margin-bottom: 12px;"><i class="fa-solid fa-location-dot"></i> Sathya Bio Tech Park, Hyderabad, India</p><div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; font-size: 0.78rem;"><i class="fa-solid fa-lock" style="color: var(--accent-gold);"></i> 100% Secure Payment (UPI, COD, NetBanking)</div></div></div><div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #a7f3d0;"><span>© 2026 Sathya Bio Agro Tech Ltd. All rights reserved. Inspired by BigHaat.</span><div style="display: flex; gap: 15px;"><span>Privacy Policy</span><span>Terms of Sale</span><span>Refund Policy</span></div></div></div></footer>
+  <script>
+    (() => {
+      let user = null;
+      try { user = JSON.parse(localStorage.getItem('sathya_user') || 'null'); } catch {}
+      if (!user) return;
+      const account = [...document.querySelectorAll('.header-actions .action-item')].find(item => item.textContent.includes('Login /') || item.textContent.includes('Register'));
+      if (!account) return;
+      const title = account.querySelector('.action-title');
+      const subtitle = account.querySelector('.action-sub');
+      if (subtitle) subtitle.textContent = user.crop || user.primaryCrop || 'Account';
+      if (title) title.textContent = `${(user.name || 'Farmer').split(' ')[0]} ▾`;
+      account.onclick = () => window.location.assign('/farmer/profile');
+      account.style.cursor = 'pointer';
+    })();
+  </script>
+</body>
+</html>

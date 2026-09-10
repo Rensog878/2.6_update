@@ -1,0 +1,66 @@
+/* Sathya Bio - BigHaat E-Commerce Responsive Rules */
+
+@media (max-width: 1024px) {
+  .hero-banner-grid {
+    grid-template-columns: 1fr;
+  }
+  .shop-layout {
+    grid-template-columns: 1fr;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .category-circles-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .crop-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .trust-strip-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    display: none;
+  }
+  .header-grid {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .header-search {
+    order: 3;
+    max-width: 100%;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .search-category-dropdown {
+    display: none;
+  }
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+  .category-circles-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .circle-icon-box {
+    width: 64px;
+    height: 64px;
+    font-size: 1.5rem;
+  }
+  .crop-grid {
+    grid-template-columns: 1fr;
+  }
+  .trust-strip-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .slide-title {
+    font-size: 1.6rem;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
