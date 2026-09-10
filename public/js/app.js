@@ -1918,7 +1918,7 @@ function renderTrendingProducts() {
           <div class="product-img-box">
 
             <img
-              src="${p.image}"
+              src="${productImage(p)}"
               alt="${p.name}"
             />
 
@@ -2499,7 +2499,7 @@ function updateCartUI() {
           <div class="cart-item">
 
             <img
-              src="${item.image}"
+              src="${productImage(item)}"
               alt="${item.name}"
             />
 
@@ -2767,7 +2767,7 @@ function openProductModal(productId) {
                   >
 
                     <img
-                      src="${rel.image}"
+                      src="${productImage(rel)}"
                       style="
                         width: 60px;
                         height: 60px;
@@ -2851,7 +2851,7 @@ function openProductModal(productId) {
       >
 
         <img
-          src="${p.image}"
+          src="${productImage(p)}"
           style="
             width: 100%;
             max-height: 140px;
@@ -3339,7 +3339,7 @@ function renderTrendingProducts() {
     <div class="product-card">
       <span class="discount-tag">${p.discount}</span>
       <div class="product-img-box">
-        <img loading="lazy" decoding="async" src="${p.image}" alt="${p.name}" />
+        <img loading="lazy" decoding="async" src="${productImage(p)}" alt="${p.name}" />
       </div>
       <div class="card-content">
         <span class="product-category-tag">${p.category}</span>
@@ -3493,7 +3493,7 @@ function updateCartUI() {
 
   cartContainer.innerHTML = cart.map((item, idx) => `
     <div class="cart-item">
-      <img loading="lazy" decoding="async" src="${item.image}" alt="${item.name}" />
+      <img loading="lazy" decoding="async" src="${productImage(item)}" alt="${item.name}" />
       <div style="flex-grow: 1;">
         <h4 style="font-size: 0.9rem; line-height: 1.2;">${item.name}</h4>
         <span style="font-size: 0.78rem; color: var(--text-muted);">${item.selectedPack} | ₹${item.price}</span>
@@ -3545,7 +3545,7 @@ function openProductModal(productId) {
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px;">
           ${relatedProducts.map(rel => `
             <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: 10px; padding: 8px; text-align: center; cursor: pointer;" onclick="openProductModal('${rel.id}')">
-              <img loading="lazy" decoding="async" src="${rel.image}" style="width: 60px; height: 60px; object-fit: contain; margin: 0 auto 4px;" />
+              <img loading="lazy" decoding="async" src="${productImage(rel)}" style="width: 60px; height: 60px; object-fit: contain; margin: 0 auto 4px;" />
               <h5 style="font-size: 0.75rem; color: var(--text-main); margin-bottom: 2px; line-height: 1.2; height: 2.4em; overflow: hidden;">${rel.name}</h5>
               <span style="font-size: 0.82rem; font-weight: 800; color: var(--primary-dark);">₹${rel.price}</span>
             </div>
@@ -3558,7 +3558,7 @@ function openProductModal(productId) {
   container.innerHTML = `
     <div style="display: grid; grid-template-columns: 160px 1fr; gap: 16px; align-items: center; margin-bottom: 16px;">
       <div style="background: #f8fafc; border-radius: 12px; padding: 10px; text-align: center; border: 1px solid var(--border-light);">
-        <img loading="lazy" decoding="async" src="${p.image}" style="width: 100%; max-height: 140px; object-fit: contain; margin: 0 auto;" />
+        <img loading="lazy" decoding="async" src="${productImage(p)}" style="width: 100%; max-height: 140px; object-fit: contain; margin: 0 auto;" />
       </div>
       <div>
         <span style="background: #ecfdf5; color: var(--primary); padding: 3px 8px; border-radius: 12px; font-weight: 700; font-size: 0.75rem; border: 1px solid #34d399;">${p.category}</span>
