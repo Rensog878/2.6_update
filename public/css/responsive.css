@@ -42,6 +42,34 @@ body {
   overflow-wrap: break-word;
 }
 
+/* ------------------------------------------------------------
+   HEADER SEARCH - sizing, at every width.
+
+   .header-search is a flex row with overflow:hidden. Per the flexbox spec an
+   overflow value other than visible sets a flex item's automatic minimum size
+   to zero, so the row was free to shrink below its own contents; the category
+   select, input, microphone and Search button then ran past the right edge and
+   overflow:hidden swallowed whichever came last. Between roughly 780px and
+   1250px that was the Search button - unreachable, and its label wrapping to a
+   second line on the way out, which is the icon-stacked-over-"Sear" look.
+
+   Three rules fix it: let the row size itself, let the input (not the buttons)
+   absorb the squeeze, and stop the label wrapping.
+   ------------------------------------------------------------ */
+
+.header-search {
+  min-width: 0;
+}
+
+.header-search input {
+  min-width: 0;
+}
+
+.header-search button {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
 /* Wide content scrolls inside itself rather than stretching the page. */
 table,
 pre {
@@ -83,6 +111,11 @@ pre {
    ------------------------------------------------------------ */
 
 @media (max-width: 1024px) {
+  /* The category select takes ~134px the search field needs more than the
+     filter is worth on a narrow window; the same filtering is in the sidebar. */
+  .search-category-dropdown {
+    display: none;
+  }
   .hero-banner-grid,
   .shop-layout {
     grid-template-columns: 1fr;
@@ -137,7 +170,18 @@ pre {
    The header becomes: logo + basket on row 1, search on row 2.
    ------------------------------------------------------------ */
 
-@media (max-width: 768px) {
+/* ------------------------------------------------------------
+   HEADER LAYOUT - tablets and below.
+
+   The action items carry two-line labels (Track / Order Status, Saved /
+   Wishlist, Account / Sign In, Basket) which together take about 480px of an
+   818px header. That left the search row 125px to fit 216px of controls, so
+   the Search button was pushed past the edge and clipped by overflow:hidden.
+   Below 1024px the labels collapse to their icons and the search field moves
+   to its own full-width row - what the phone layout already did at 768px.
+   ------------------------------------------------------------ */
+
+@media (max-width: 1024px) {
   .topbar {
     display: none;
   }
@@ -161,9 +205,6 @@ pre {
     margin-top: 4px;
   }
 
-  .search-category-dropdown {
-    display: none;
-  }
 
   .header-actions {
     flex: 0 0 auto;
@@ -189,6 +230,9 @@ pre {
     font-size: 1.25rem;
   }
 
+}
+
+@media (max-width: 768px) {
   .products-grid {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 14px;
