@@ -36,11 +36,22 @@ const CATEGORIES = [
   'Nematicide'
 ];
 
+// Product rows in the database still carry the original ./assets/pN.png paths,
+// which are 1024x1024 JPEGs of roughly 430KB each. The .webp copies beside them
+// are the same pictures at the size they are actually displayed, ~12KB. Map the
+// bundled defaults across as they are rendered so stored rows get the small
+// file without a data migration; anything else (a CMS upload, a remote URL) is
+// passed through untouched.
+function productImage(product) {
+  const src = (product && product.image) || './assets/p1.webp';
+  return src.replace(/\.\/assets\/(p[1-4])\.png$/, './assets/$1.webp');
+}
+
 const IMG = {
-  fungicide: './assets/p1.png',
-  insecticide: './assets/p2.png',
-  biostim: './assets/p3.png',
-  herbicide: './assets/p4.png',
+  fungicide: './assets/p1.webp',
+  insecticide: './assets/p2.webp',
+  biostim: './assets/p3.webp',
+  herbicide: './assets/p4.webp',
 };
 
 
@@ -854,13 +865,24 @@ function initApp() {
   initPreloaderAndWelcomePoster();
 }
 
+// Two initialisers need the CMS settings, and each was fetching them
+// separately - two round trips on a phone for one payload. Share a single
+// in-flight promise so the request happens once per page load.
+let cmsSettingsRequest = null;
+function loadCmsSettings() {
+  if (!cmsSettingsRequest) {
+    cmsSettingsRequest = fetch('/api/cms')
+      .then(response => (response.ok ? response.json() : null))
+      .then(json => (json && json.data) || {})
+      .catch(() => ({})); // local CMS settings remain available offline
+  }
+  return cmsSettingsRequest;
+}
+
 async function applyCertificationSettings() {
   let settings = {};
   try { settings = JSON.parse(localStorage.getItem('sathya_cms') || '{}'); } catch { return; }
-  try {
-    const response = await fetch('/api/cms');
-    if (response.ok) settings = { ...settings, ...((await response.json()).data || {}) };
-  } catch { /* local CMS settings remain available offline */ }
+  settings = { ...settings, ...(await loadCmsSettings()) };
 
   const title = document.getElementById('certificationsTitle');
   const subtitle = document.getElementById('certificationsSubtitle');
@@ -904,10 +926,7 @@ function initPreloaderAndWelcomePoster() {
 async function applyWelcomePosterSettings() {
   let settings = {};
   try { settings = JSON.parse(localStorage.getItem('sathya_cms') || '{}'); } catch { return; }
-  try {
-    const response = await fetch('/api/cms');
-    if (response.ok) settings = { ...settings, ...((await response.json()).data || {}) };
-  } catch { /* local CMS settings remain available offline */ }
+  settings = { ...settings, ...(await loadCmsSettings()) };
   const user = (() => { try { return JSON.parse(localStorage.getItem('sathya_user') || 'null'); } catch { return null; } })();
   if (settings.popupAudience === 'farmer' && user?.role !== 'farmer') return;
   const seen = localStorage.getItem('sathya_popup_seen') === '1';
@@ -944,23 +963,6 @@ function initAdvisorySignup() {
       alert('Unable to save your advisory subscription. Please try again.');
     }
   });
-}
-
-// Ensure execution even if DOMContentLoaded already fired
-
-if (
-  document.readyState === 'interactive' ||
-  document.readyState === 'complete'
-) {
-
-  initApp();
-
-} else {
-
-  document.addEventListener(
-    'DOMContentLoaded',
-    initApp
-  );
 }
 
 
@@ -1644,7 +1646,7 @@ function renderProducts() {
             <div class="product-img-box">
 
               <img
-                src="${p.image || './assets/p1.png'}"
+                src="${productImage(p)}"
                 alt="${p.name}"
               />
 
@@ -1916,7 +1918,7 @@ function renderTrendingProducts() {
           <div class="product-img-box">
 
             <img
-              src="${p.image}"
+              src="${productImage(p)}"
               alt="${p.name}"
             />
 
@@ -2497,7 +2499,7 @@ function updateCartUI() {
           <div class="cart-item">
 
             <img
-              src="${item.image}"
+              src="${productImage(item)}"
               alt="${item.name}"
             />
 
@@ -2765,7 +2767,7 @@ function openProductModal(productId) {
                   >
 
                     <img
-                      src="${rel.image}"
+                      src="${productImage(rel)}"
                       style="
                         width: 60px;
                         height: 60px;
@@ -2849,7 +2851,7 @@ function openProductModal(productId) {
       >
 
         <img
-          src="${p.image}"
+          src="${productImage(p)}"
           style="
             width: 100%;
             max-height: 140px;
@@ -3285,7 +3287,7 @@ function renderProducts() {
     <div class="product-card">
       <span class="discount-tag">${p.discount || 'Special Offer'}</span>
       <div class="product-img-box">
-        <img src="${p.image || './assets/p1.png'}" alt="${p.name}" />
+        <img loading="lazy" decoding="async" src="${productImage(p)}" alt="${p.name}" />
       </div>
       <div class="card-content">
         <span class="product-category-tag">${p.category}</span>
@@ -3337,7 +3339,7 @@ function renderTrendingProducts() {
     <div class="product-card">
       <span class="discount-tag">${p.discount}</span>
       <div class="product-img-box">
-        <img src="${p.image}" alt="${p.name}" />
+        <img loading="lazy" decoding="async" src="${productImage(p)}" alt="${p.name}" />
       </div>
       <div class="card-content">
         <span class="product-category-tag">${p.category}</span>
@@ -3491,7 +3493,7 @@ function updateCartUI() {
 
   cartContainer.innerHTML = cart.map((item, idx) => `
     <div class="cart-item">
-      <img src="${item.image}" alt="${item.name}" />
+      <img loading="lazy" decoding="async" src="${productImage(item)}" alt="${item.name}" />
       <div style="flex-grow: 1;">
         <h4 style="font-size: 0.9rem; line-height: 1.2;">${item.name}</h4>
         <span style="font-size: 0.78rem; color: var(--text-muted);">${item.selectedPack} | ₹${item.price}</span>
@@ -3543,7 +3545,7 @@ function openProductModal(productId) {
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px;">
           ${relatedProducts.map(rel => `
             <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: 10px; padding: 8px; text-align: center; cursor: pointer;" onclick="openProductModal('${rel.id}')">
-              <img src="${rel.image}" style="width: 60px; height: 60px; object-fit: contain; margin: 0 auto 4px;" />
+              <img loading="lazy" decoding="async" src="${productImage(rel)}" style="width: 60px; height: 60px; object-fit: contain; margin: 0 auto 4px;" />
               <h5 style="font-size: 0.75rem; color: var(--text-main); margin-bottom: 2px; line-height: 1.2; height: 2.4em; overflow: hidden;">${rel.name}</h5>
               <span style="font-size: 0.82rem; font-weight: 800; color: var(--primary-dark);">₹${rel.price}</span>
             </div>
@@ -3556,7 +3558,7 @@ function openProductModal(productId) {
   container.innerHTML = `
     <div style="display: grid; grid-template-columns: 160px 1fr; gap: 16px; align-items: center; margin-bottom: 16px;">
       <div style="background: #f8fafc; border-radius: 12px; padding: 10px; text-align: center; border: 1px solid var(--border-light);">
-        <img src="${p.image}" style="width: 100%; max-height: 140px; object-fit: contain; margin: 0 auto;" />
+        <img loading="lazy" decoding="async" src="${productImage(p)}" style="width: 100%; max-height: 140px; object-fit: contain; margin: 0 auto;" />
       </div>
       <div>
         <span style="background: #ecfdf5; color: var(--primary); padding: 3px 8px; border-radius: 12px; font-weight: 700; font-size: 0.75rem; border: 1px solid #34d399;">${p.category}</span>
@@ -3852,7 +3854,7 @@ function initExpertBooking() {
 
   grid.innerHTML = EXPERTS.map(exp => `
     <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 16px; display: flex; gap: 14px; align-items: center;">
-      <img src="${exp.avatar}" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary);" />
+      <img loading="lazy" decoding="async" src="${exp.avatar}" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary);" />
       <div>
         <h4 style="font-size: 0.95rem; color: var(--primary-dark);">${exp.name}</h4>
         <span style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-bottom: 4px;">${exp.title}</span>
@@ -4992,4 +4994,20 @@ function startStorefrontOtpTimer(seconds) {
 
     render();
   }, 1000);
+}
+
+// ---------------------------------------------------------------------------
+// Bootstrap.
+//
+// This must stay the LAST thing in the file. The script is deferred, so by the
+// time it runs document.readyState is already "interactive" and initApp() is
+// called on the spot. Anywhere earlier in the file that call would happen
+// before the top-level let/const declarations below it had initialised, and
+// the first one it touched would throw a TDZ error and abort the rest of the
+// script.
+// ---------------------------------------------------------------------------
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
 }

@@ -327,6 +327,64 @@ pre {
 }
 
 /* ------------------------------------------------------------
+   7b. NAVBAR ON PHONES
+   The links strip already scrolls horizontally, but the gold call-to-action
+   sitting beside it left only ~160px of the 360px screen for eight links.
+   Below 600px the button steps out so the navigation is actually usable;
+   the same action is reachable from the hero and the catalogue.
+   ------------------------------------------------------------ */
+
+@media (max-width: 600px) {
+  .navbar .nav-content > div:last-child,
+  .navbar .btn-gold {
+    display: none;
+  }
+  .nav-links {
+    width: 100%;
+    padding-bottom: 2px;
+  }
+}
+
+/* ------------------------------------------------------------
+   7a. HEADER SEARCH
+   .header-search is a flex row with overflow:hidden, and its input had no
+   min-width. A flex item will not shrink below its content width by default,
+   so on a phone the input held its size and pushed the Search button off the
+   end, where overflow:hidden hid it - the control was unreachable. Letting
+   the input shrink, and reducing the button to its icon, keeps both usable.
+   ------------------------------------------------------------ */
+
+@media (max-width: 600px) {
+  .header-search input {
+    min-width: 0;
+  }
+  .header-search button {
+    flex: 0 0 auto;
+    padding: 0 16px;
+  }
+  /* Icon only - "Search" alongside it does not fit at this width. */
+  .header-search button:last-of-type {
+    font-size: 0;
+  }
+  .header-search button:last-of-type i {
+    font-size: 1rem;
+  }
+}
+
+/* ------------------------------------------------------------
+   7c. FOOTER
+   .footer-grid is defined in style.css; the pages now carry that class
+   instead of an inline grid-template-columns, which outranked these
+   breakpoints and kept four columns on a 360px screen.
+   ------------------------------------------------------------ */
+
+@media (max-width: 600px) {
+  .footer-grid {
+    gap: 22px !important;
+  }
+}
+
+/* ------------------------------------------------------------
    8. TOUCH DEVICES
    Comfortable hit areas and no iOS zoom-on-focus.
    ------------------------------------------------------------ */
@@ -342,8 +400,24 @@ pre {
     min-height: 44px;
   }
 
-  .qty-btn {
+  .qty-btn,
+  .header-search button,
+  .voice-search-btn,
+  .cart-close-btn,
+  .modal-close-btn {
     min-width: 44px;
+  }
+
+  /* Footer links sit in tight lists; a little vertical padding makes them
+     comfortable to hit without changing how the footer looks. */
+  .footer-grid a,
+  .footer-bottom a {
+    display: inline-block;
+    padding: 6px 0;
+  }
+
+  .deal-cta {
+    min-height: 44px;
   }
 
   /* iOS Safari zooms the whole page when focusing an input under 16px, which
@@ -355,6 +429,9 @@ pre {
   .text-input,
   .select-input,
   .lang-select,
+  .header-lang-dropdown,
+  .header-actions select,
+  .search-category-dropdown select,
   #headerSearchInput,
   .header-search input,
   .chatbot-input-row input,
