@@ -43,7 +43,7 @@ export default function Login() {
     try {
       const user = await login(mobile.trim(), password)
       toast.success(`Welcome back, ${user.name}! 🌿`)
-      navigate(ROLE_HOME[user.role] || '/farmer', { replace: true })
+      navigate(ROLE_HOME[user.role] || '/', { replace: true })
     } catch (err) {
       toast.error(err?.message || err?.response?.data?.message || 'Invalid credentials')
     } finally {

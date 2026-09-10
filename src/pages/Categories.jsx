@@ -305,7 +305,7 @@ export default function Categories() {
           <Truck size={20} />
           <span>Orders</span>
         </Link>
-        <Link to="/farmer/advisory" className="mobile-nav-link">
+        <Link to="/agronomists" className="mobile-nav-link">
           <Leaf size={20} />
           <span>AI Doctor</span>
         </Link>

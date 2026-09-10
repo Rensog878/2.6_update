@@ -1,8 +1,9 @@
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
+// Farmers have no separate portal - the storefront homepage is their home.
 const ROLE_HOME = {
-  farmer: '/farmer', admin: '/admin', employee: '/employee',
+  farmer: '/', admin: '/admin', employee: '/employee',
   delivery: '/delivery', billing: '/billing'
 }
 

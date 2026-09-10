@@ -93,12 +93,12 @@ export default function ProductDetail() {
   const selectedOriginalPrice = product.originalPrice ? Math.round(Number(product.originalPrice) * (selectedPrice / Number(product.price || 1))) : selectedPrice
   const addToCart = () => {
     let cart = []
-    try { cart = JSON.parse(localStorage.getItem('sathya_cart') || '[]') } catch { cart = [] }
+    try { cart = JSON.parse(localStorage.getItem('sathya_cart_guest') || '[]') } catch { cart = [] }
     const productId = product._id || product.id
     const existing = cart.find(item => (item._id || item.id) === productId && item.selectedPack === selectedPack)
     if (existing) existing.qty = (existing.qty || 1) + 1
     else cart.push({ ...product, _id: productId, price: selectedPrice, originalPrice: selectedOriginalPrice, selectedPack, qty: 1 })
-    localStorage.setItem('sathya_cart', JSON.stringify(cart))
+    localStorage.setItem('sathya_cart_guest', JSON.stringify(cart))
     navigate('/checkout.html')
   }
   const toggleWishlist = async () => {

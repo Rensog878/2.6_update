@@ -3415,8 +3415,11 @@ window.filterByCrop = function(crop) {
 // --- SHOPPING CART ---
 // The storefront may run inside an iframe on "/", so navigate the top window.
 function goToCartPage() {
-  saveCart();
-  window.top.location.href = '/farmer/cart';
+  // Persist first so checkout.html reads the same cart (server for signed-in
+  // users, sathya_cart_guest for guests), then hand off to the checkout page.
+  Promise.resolve(saveCart()).finally(() => {
+    window.top.location.href = '/checkout.html';
+  });
 }
 
 function initCart() {
@@ -4383,9 +4386,9 @@ window.submitStorefrontLogin = async function(e) {
     // Carry anything added as a guest into this user's own cart before leaving.
     await syncCartFromServer();
 
-    // Send each role to its own portal (mirrors ROLE_HOME in the React app).
+    // Staff roles each have their own portal. Farmers have no separate portal
+    // any more - they shop, and stay, on the storefront homepage.
     const ROLE_HOME = {
-      farmer: '/farmer',
       admin: '/admin',
       employee: '/employee',
       delivery: '/delivery',

@@ -116,7 +116,7 @@ export default function Register() {
       await verifyRegistrationOtp(form.phone.trim(), otp.trim())
       await register({ ...form, role: 'farmer' })
       toast.success('Registration successful! Welcome to Sathya Bio 🌿')
-      navigate('/farmer', { replace: true })
+      navigate('/', { replace: true })
     } catch (err) {
       toast.error(err?.response?.data?.message || 'Registration failed')
     } finally {

@@ -7,14 +7,6 @@ import Login    from './pages/Login'
 import Register from './pages/Register'
 import ProductDetail from './pages/ProductDetail'
 import IngredientDetail from './pages/IngredientDetail'
-import FarmerProfile from './pages/farmer/Profile'
-import FarmerLayout from './layouts/FarmerLayout'
-import FarmerDashboard from './pages/farmer/Dashboard'
-import FarmerProducts from './pages/farmer/Products'
-import FarmerCart from './pages/farmer/Cart'
-import FarmerOrders from './pages/farmer/Orders'
-import OrderTracking from './pages/farmer/OrderTracking'
-import FarmerAdvisory from './pages/farmer/Advisory'
 import Navigation from './components/home/Navigation'
 import Footer from './components/home/Footer'
 import StoreSection from './pages/StoreSection'
@@ -91,15 +83,6 @@ export default function App() {
       <Route path="/whatsapp-ai" element={<PublicPageShell><StoreSection type="n8n" /></PublicPageShell>} />
       <Route path="/support" element={<PublicPageShell><StoreSection type="support" /></PublicPageShell>} />
       <Route path="/agronomists" element={<PublicPageShell><StoreSection type="agronomists" /></PublicPageShell>} />
-      <Route path="/farmer/profile" element={<PrivateRoute allowedRoles={['farmer']}><FarmerProfile /></PrivateRoute>} />
-      <Route path="/farmer" element={<PrivateRoute allowedRoles={['farmer']}><FarmerLayout /></PrivateRoute>}>
-        <Route index element={<FarmerDashboard />} />
-        <Route path="products" element={<FarmerProducts />} />
-        <Route path="cart" element={<FarmerCart />} />
-        <Route path="orders" element={<FarmerOrders />} />
-        <Route path="orders/:id" element={<OrderTracking />} />
-        <Route path="advisory" element={<FarmerAdvisory />} />
-      </Route>
 
       {/* Admin Routes */}
       <Route path="/admin" element={<PrivateRoute allowedRoles={['admin']}><AdminLayout /></PrivateRoute>}>

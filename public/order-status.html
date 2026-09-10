@@ -68,7 +68,6 @@
       const subtitle = account.querySelector('.action-sub');
       if (subtitle) subtitle.textContent = user.crop || user.primaryCrop || 'Account';
       if (title) title.textContent = `${(user.name || 'Farmer').split(' ')[0]} ▾`;
-      account.onclick = () => window.location.assign('/farmer/profile');
       account.style.cursor = 'pointer';
     })();
   </script>
