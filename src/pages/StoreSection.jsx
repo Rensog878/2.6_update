@@ -24,12 +24,12 @@ const SECTION_CONTENT = {
   soil: {
     title: 'Soil Analyzer',
     intro: 'Use your soil report to plan a more precise crop-care program.',
-    links: [['/farmer/advisory', 'Open crop advisory', 'Get guidance for your farm'], ['/farmer/profile', 'Farm profile', 'Keep your soil and crop details ready']]
+    links: [['/support', 'Talk to an agronomist', 'Get guidance for your farm'], ['/agronomists', 'Our experts', 'Browse crop specialists']]
   },
   n8n: {
     title: 'WhatsApp N8N AI',
     intro: 'Connect with Sathya Bio support for quick crop and dosage guidance.',
-    links: [['/support', 'Contact support', 'Send a support request'], ['/farmer/advisory', 'Crop advisory', 'Review recommendations']]
+    links: [['/support', 'Contact support', 'Send a support request'], ['/agronomists', 'Crop advisory', 'Review recommendations']]
   },
   support: {
     title: 'Support Tickets',
@@ -39,7 +39,7 @@ const SECTION_CONTENT = {
   agronomists: {
     title: 'Agronomists',
     intro: 'Reach experienced crop advisors for practical field guidance.',
-    links: [['/farmer/advisory', 'Crop advisory', 'View crop recommendations'], ['/support', 'Book support', 'Ask the support team']]
+    links: [['/agronomists', 'Crop advisory', 'View crop recommendations'], ['/support', 'Book support', 'Ask the support team']]
   }
 }
 
